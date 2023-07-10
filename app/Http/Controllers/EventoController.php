@@ -19,10 +19,12 @@ class EventoController extends Controller
             $eventos = Evento::where(function ($query) use ($pesquisar) {
                 $query->where('responsavel', 'like', '%'.$pesquisar.'%')
                     ->orWhere('nome_evento', 'like', '%'.$pesquisar.'%')
+                    ->orWhere('email', 'like', '%'.$pesquisar.'%')
+                    ->orWhere('data', 'like', '%'.$pesquisar.'%')
                     ->orWhere('local', 'like', '%'.$pesquisar.'%');
-            })->get();
+            })->paginate(5);
         } else {
-            $eventos = Evento::paginate(5);
+            $eventos = Evento::orderBy('data', 'desc')->paginate(5);
         }
         return view('site.index', ['eventos' => $eventos, 'pesquisar' => $pesquisar]);
     }

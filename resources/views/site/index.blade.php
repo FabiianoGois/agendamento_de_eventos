@@ -15,7 +15,7 @@
                 <button type="submit" class="btn btn-primary">Pesquisar</button>
             </div>
         </div>
-        <div class="container text-center mt-5">
+        <div class="container text-center mt-3">
 
             @if ($pesquisar)
                 <h1>Buscando por: {{ $pesquisar }} </h1>
@@ -45,7 +45,7 @@
                             <td>{{ $evento->email }}</td>
                             <td>{{ $evento->nome_evento }}</td>
                             <td>{{ $evento->local }}</td>
-                            <td>{{ $evento->data }}</td>
+                            <td>{{ \Carbon\Carbon::parse($evento->data)->format('d/m/Y') }}</td>
                             <td>{{ $evento->inicio }}</td>
                             <td>{{ $evento->fim }}</td>
                             <td>{{ $evento->descricao }}</td>
@@ -59,6 +59,10 @@
             @elseif(count($eventos) == 0)
                 <p>Não há eventos disponíveis.</p>
             @endif
+
+            <div class="d-flex justify-content-center">
+                {{ $eventos->links() }}
+            </div>
         </div>
     </form>
 @endsection
