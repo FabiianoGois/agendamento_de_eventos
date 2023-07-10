@@ -4,34 +4,55 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Evento;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class EventoController extends Controller
 {
-    public function index()
+    public function loadEventos()
     {
-        $evento = Evento::all();
-        return view('site.index', ['evento' => $evento]);
+        $pesquisar = request('pesquisar');
+       // $filtro = request('filtro');
+
+        if ($pesquisar) {
+            $eventos = Evento::where(function ($query) use ($pesquisar) {
+                $query->where('responsavel', 'like', '%'.$pesquisar.'%')
+                    ->orWhere('nome_evento', 'like', '%'.$pesquisar.'%')
+                    ->orWhere('local', 'like', '%'.$pesquisar.'%');
+            })->get();
+        } else {
+            $eventos = Evento::paginate(5);
+        }
+        return view('site.index', ['eventos' => $eventos, 'pesquisar' => $pesquisar]);
     }
 
     public function create()
     {
-        return view('site.evento');
+        $local = [
+            '1' => 'plenario',
+            '2' => 'auditorio',
+            '3' => 'sala_reuniao',
+        ];
+        return view('site.evento', ['local' => $local]);
+    }
+    public function teste()
+    {
+        return view('site.teste');
     }
 
     public function store(Request $request)
     {
 
         $validator = Validator::make($request->all(), [
-            'responsavel' => 'required',
+            'responsavel' => 'required|min:3|max:40',
             'email' => 'required|email',
             'nome_evento' => 'required',
             'local' => 'required',
             'data' => 'required|date',
             'inicio' => 'required',
             'fim' => 'required',
-            'descricao' => 'required',
+            'descricao' => 'required|max:2000',
         ]);
 
         if ($validator->fails()) {

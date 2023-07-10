@@ -18,6 +18,6 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', [EventoController::class, 'index'])->name('evento.index');
+Route::get('/', [EventoController::class, 'loadEventos'])->name('site.index');
 Route::get('/eventos', [EventoController::class, 'create'])->name('evento.index');
 Route::post('/eventos', [EventoController::class, 'store'])->name('evento.store');
