@@ -22,7 +22,7 @@
         <select id="local" name="local" class="form-select">
             <option value="">Defina um local:</option>
             @foreach ($local as $key => $local)
-                <option value="{{ $key }}" {{ old('local') == $key ? 'selected' : '' }}>{{ $local }}
+                <option value="{{ $local->id }}" {{ old('local') == $local->id ? 'selected' : '' }}>{{ $local->local }}
                 </option>
             @endforeach
         </select>

@@ -7,6 +7,7 @@ use App\Models\Evento;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use App\Models\LocalEvento;
 
 class EventoController extends Controller
 {
@@ -26,16 +27,13 @@ class EventoController extends Controller
         } else {
             $eventos = Evento::orderBy('data', 'desc')->paginate(5);
         }
-        return view('site.index', ['eventos' => $eventos, 'pesquisar' => $pesquisar]);
+        return view('site.index', ['eventos' => $eventos, 'pesquisar' => $pesquisar,]);
     }
 
     public function create()
     {
-        $local = [
-            '1' => 'plenario',
-            '2' => 'auditorio',
-            '3' => 'sala_reuniao',
-        ];
+        $local = LocalEvento::all();
+
         return view('site.evento', ['local' => $local]);
     }
     public function teste()
