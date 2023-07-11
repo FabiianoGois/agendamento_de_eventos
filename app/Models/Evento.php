@@ -13,10 +13,15 @@ class Evento extends Model
         'responsavel',
         'email',
         'nome_evento',
-        'local',
+        'local_eventos_id',
         'data',
         'inicio',
         'fim',
         'descricao'
     ];
+
+    public function localEvento()
+    {
+        return $this->belongsTo(LocalEvento::class, 'local_eventos_id');
+    }
 }

@@ -44,7 +44,7 @@
                             <td>{{ $evento->responsavel }}</td>
                             <td>{{ $evento->email }}</td>
                             <td>{{ $evento->nome_evento }}</td>
-                            <td>{{ $evento->local }}</td>
+                            <td>{{ $evento->localEvento->local }}</td>
                             <td>{{ \Carbon\Carbon::parse($evento->data)->format('d/m/Y') }}</td>
                             <td>{{ $evento->inicio }}</td>
                             <td>{{ $evento->fim }}</td>
