@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class LocalEvento extends Model
 {
     use HasFactory;
-    protected $fillable = ['local_evento'];
+    protected $fillable = ['local_evento_id'];
 
     public function eventos()
     {

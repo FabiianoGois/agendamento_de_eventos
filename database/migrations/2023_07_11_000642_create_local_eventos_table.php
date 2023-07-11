@@ -20,11 +20,12 @@ class CreateLocalEventosTable extends Migration
             $table->timestamps();
         });
 
-        /*
+       /* 
         LocalEvento::create(['Plenario']);
         LocalEvento::create(['Auditório']);
         LocalEvento::create(['Sala de Reunião']);
         */
+        
     }
 
     /**
