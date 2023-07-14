@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Evento;
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use App\Models\LocalEvento;
@@ -14,27 +13,45 @@ class EventoController extends Controller
     public function loadEventos()
     {
         $pesquisar = request('pesquisar');
-        // $filtro = request('filtro');
+        $pesquisarLocal = request('pesquisarLocal');
+        $filtroData = request('filtroData');
+
+        $locaisEventos = LocalEvento::all();
+
+        $eventos = Evento::query();
 
         if ($pesquisar) {
-            $eventos = Evento::where(function ($query) use ($pesquisar) {
+            $eventos->where(function ($query) use ($pesquisar) {
                 $query->where('responsavel', 'like', '%' . $pesquisar . '%')
                     ->orWhere('nome_evento', 'like', '%' . $pesquisar . '%')
-                    ->orWhere('email', 'like', '%' . $pesquisar . '%')
-                    ->orWhere('data', 'like', '%' . $pesquisar . '%')
-                    ->orWhere('local_eventos_id', 'like', '%' . $pesquisar . '%');
-            })->paginate(5);
-        } else {
-            $eventos = Evento::orderBy('data', 'desc')->paginate(5);
+                    ->orWhere('email', 'like', '%' . $pesquisar . '%');
+            });
         }
-        return view('site.index', ['eventos' => $eventos, 'pesquisar' => $pesquisar,]);
+
+        if ($pesquisarLocal) {
+            $eventos->where('local_eventos_id', $pesquisarLocal);
+        }
+
+        if ($filtroData) {
+            $eventos->whereDate('data', $filtroData);
+        }
+
+        $eventos = $eventos->orderBy('data', 'desc')->paginate(5);
+
+        return view('site.index', [
+            'eventos' => $eventos,
+            'pesquisar' => $pesquisar,
+            'pesquisarLocal' => $pesquisarLocal,
+            'filtroData' => $filtroData,
+            'locaisEventos' => $locaisEventos,
+        ]);
     }
 
     public function create()
     {
         $local = LocalEvento::all();
 
-        return view('site.evento', ['local_eventos_id' => $local]);
+        return view('site.evento', ['local' => $local]);
     }
     public function teste()
     {
@@ -51,7 +68,7 @@ class EventoController extends Controller
                 'email' => 'email',
                 'nome_evento' => 'required',
                 'local_eventos_id' => 'required',
-                'data' => 'required|date',
+                'data' => 'required|date|after_or_equal:today',
                 'inicio' => 'required',
                 'fim' => 'required',
                 'descricao' => 'required|max:2000',
@@ -61,6 +78,8 @@ class EventoController extends Controller
                 'responsavel.max' => 'O campo responsável deve ter no máximo 40 caracteres.',
 
                 'email.email' => 'O email informado não é válido.',
+
+                'data.after_or_equal' => 'A data deve ser igual ou posterior à data atual.',
 
                 'descricao' => 'A descrição deve conter no máximo 2000 caracteres.',
 
