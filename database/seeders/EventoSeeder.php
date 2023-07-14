@@ -20,7 +20,7 @@ class EventoSeeder extends Seeder
         $eventos->responsavel = "Fabiano";
         $eventos->email = "fabianosilva@creadf.org.br";
         $eventos->nome_evento = "Reunião Agendamento";
-        $eventos->local_eventos_id = 2;
+        $eventos->local = 2;
         $eventos->data = "2023-07-010";
         $eventos->inicio = "16:00";
         $eventos->fim = "16:30";
@@ -32,7 +32,7 @@ class EventoSeeder extends Seeder
             'responsavel' => 'Guilherme',
             'email' => 'Guilherme@creadf.org.br',
             'nome_evento' => 'Reunião GED',
-            'local_eventos_id' => 1,
+            'local' => 1,
             'data' => '2023-07-08',
             'inicio' => '15:00',
             'fim' => '15:30',
@@ -44,7 +44,7 @@ class EventoSeeder extends Seeder
             'responsavel' => 'Paulo',
             'email' => 'paulo@creadf.org.br',
             'nome_evento' => 'Reunião SGO',
-            'local_eventos_id' => 3,
+            'local' => 3,
             'data' => '2023-07-04',
             'inicio' => '15:00',
             'fim' => '15:30',

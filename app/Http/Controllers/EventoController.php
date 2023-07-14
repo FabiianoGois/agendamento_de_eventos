@@ -24,12 +24,16 @@ class EventoController extends Controller
             $eventos->where(function ($query) use ($pesquisar) {
                 $query->where('responsavel', 'like', '%' . $pesquisar . '%')
                     ->orWhere('nome_evento', 'like', '%' . $pesquisar . '%')
-                    ->orWhere('email', 'like', '%' . $pesquisar . '%')
-                    ->orWhere('data', 'like', '%' . $pesquisar . '%')
-                    ->orWhere('local_eventos_id', 'like', '%' . $pesquisar . '%');
-            })->paginate(5);
-        } else {
-            $eventos = Evento::orderBy('data', 'desc')->paginate(5);
+                    ->orWhere('email', 'like', '%' . $pesquisar . '%');
+            });
+        }
+
+        if ($pesquisarLocal) {
+            $eventos->where('local_eventos_id', $pesquisarLocal);
+        }
+
+        if ($filtroData) {
+            $eventos->whereDate('data', $filtroData);
         }
 
         $eventos = $eventos->orderBy('data', 'desc')->paginate(5);

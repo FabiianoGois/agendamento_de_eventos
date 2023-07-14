@@ -4,7 +4,6 @@
 
 @section('conteudo')
 
-
     <!-- Conteúdo Centralizado -->
     <form action="/" method="GET">
         @csrf
@@ -71,7 +70,6 @@
                     @endforeach
                 </tbody>
             </table>
-
             @if (count($eventos) == 0 && $pesquisar)
                 <p>Não foi possível encontrar eventos com o termo {{ $pesquisar }}. <a href="/">Ver todos
                         eventos.</a></p>
@@ -91,7 +89,6 @@
             @elseif (count($eventos) == 0)
                 <p>Não há eventos disponíveis.</p>
             @endif
-
             <div class="d-flex justify-content-center">
                 {{ $eventos->links() }}
             </div>

@@ -56,7 +56,7 @@
     <div class="col-md-6">
         <div class="col-sm-2"></div>
         <div class="col-sm-6">
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="submit" class="btn btn-primary mb-3 mt-3">Enviar</button>
         </div>
     </div>
 </form>
