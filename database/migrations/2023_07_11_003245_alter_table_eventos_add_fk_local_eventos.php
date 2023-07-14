@@ -19,8 +19,8 @@ class AlterTableEventosAddFkLocalEventos extends Migration
             $table->unsignedBigInteger('local_eventos_id');
         });
 
-        // Atribuindo local para a nova coluna local_eventos_id
-        DB::statement('update eventos set local_eventos_id = local');
+        // // Atribuindo local para a nova coluna local_eventos_id
+        // DB::statement('update eventos set local_eventos_id = local');
 
         // Criação da FK e remover a coluna local
         Schema::table('eventos', function (Blueprint $table) {
