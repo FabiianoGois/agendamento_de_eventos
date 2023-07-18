@@ -36,7 +36,7 @@ class EventoController extends Controller
             $eventos->whereDate('data', $filtroData);
         }
 
-        $eventos = $eventos->orderBy('data', 'desc')->paginate(5);
+        $eventos = $eventos->orderBy('data', 'desc')->paginate(10);
 
         return view('site.index', [
             'eventos' => $eventos,
