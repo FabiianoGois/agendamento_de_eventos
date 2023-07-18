@@ -1,6 +1,7 @@
     <div class="topo">
         <!-- Barra de Menu -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
+            <img src="{{ asset('assets/img/logo.png') }}" alt="Logo" width="190" height="50">
             <div class="container">
                 <a class="navbar-brand" href="/">Início</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
